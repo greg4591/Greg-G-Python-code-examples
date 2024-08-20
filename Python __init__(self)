@@ -1,0 +1,10 @@
+class World: # Define our class
+    # Define our greeting
+    greeting = "Hello, World!"
+    #print(greeting) # Print our greeting
+    def __init__ (self, greeting):
+        # Print the greeting
+        print(greeting)
+
+# What am I doing wrong? Why doesn't print(greeting) execute? 
+# I have tried __init__(self) in line 5 and print(self.greeting) in line 7
