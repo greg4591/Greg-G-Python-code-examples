@@ -3,7 +3,6 @@
 # It requires the `sqlite3` module to be installed.
 import sqlite3
 import sys
-import os
 import json
 
 con = sqlite3.connect('northwind.db')
