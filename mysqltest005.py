@@ -61,6 +61,24 @@ def query_data(conn):
         print(f"Error querying data: {e}")
         sys.exit(1)
 
+# Optionally, remove data by ID
+# id_number = input("Enter the ID of the record to remove: ")
+# remove_data_by_id(conn, id_number)
+def Remove_data_by_ID(conn, id_number):
+    """Remove data from the table by selected ID number."""
+    try:
+        sql_delete_data = """DELETE FROM mytest WHERE id = ?;"""
+        cursor = conn.cursor()
+        cursor.execute(sql_delete_data, (id_number,))
+        conn.commit()
+        if cursor.rowcount > 0:
+            print(f"Record with ID {id_number} removed successfully.")
+        else:
+            print(f"No record found with ID {id_number}.")
+    except sqlite3.Error as e:
+            print(f"Error removing data: {e}")
+            sys.exit(1)
+    
 
 def main():
     mytestsqldb = "mytest.db"
@@ -80,7 +98,12 @@ def main():
     
     # Query the data
     query_data(conn)
-    
+
+    # Optionally, remove data by ID
+    Remove_data_by_ID(conn, id_number)
+    id_number = input("Enter the ID of the record to remove: ")
+
+    # If the connection exists, close it
     # Close the connection
     if conn:
         conn.close()
@@ -96,6 +119,9 @@ age = ask_for_input("What is your age? ") # Ask for the person's age
 insert_data(conn, name, age) # Insert the data into the table
     
 query_data(conn) # Query the data from the table
+
+Remove_data_by_ID(conn, input("Enter the ID of the record to remove: ")) # Remove data by ID
+    # Close the connection
     
 if conn: # Close the connection if it exists
         conn.close()
